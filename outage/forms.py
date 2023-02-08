@@ -7,8 +7,8 @@ from .models import Outage
 class OutageForm(forms.ModelForm):
     time_out = forms.DateTimeField(widget=DateTimePickerInput)
     time_in = forms.DateTimeField(widget=DateTimePickerInput, required=False)
-    fault_cause = forms.CharField(widget=forms.Textarea)
-    resolution = forms.CharField(widget=forms.Textarea)
+    fault_cause = forms.CharField(widget=forms.Textarea, required=False)
+    resolution = forms.CharField(widget=forms.Textarea, required=False)
 
     class Meta:
         model = Outage
