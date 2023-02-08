@@ -1,0 +1,17 @@
+{% extends 'partials/auth_card.html' %}
+{% block title %}Login{% endblock %}
+
+{% block auth-card-title %}Login{% endblock %}
+
+{% block auth-card %}
+<!-- Login form-->
+<form method="POST">
+    {% csrf_token %}
+    {% include 'includes/bs5_form.html' with form=form %}
+    <!-- Form Group (login box)-->
+    <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+        <a class="small" href="{% url 'password_reset' %}">Forgot Password?</a>
+        <input type="submit" class="btn btn-primary" value="Login">
+    </div>
+</form>
+{% endblock auth-card %}

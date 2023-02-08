@@ -1,0 +1,56 @@
+{% load static %}
+<nav class="topnav navbar navbar-expand shadow justify-content-between justify-content-sm-start navbar-light bg-white"
+    id="sidenavAccordion">
+    <!-- Sidenav Toggle Button-->
+    <button class="btn btn-icon btn-transparent-dark order-1 order-lg-0 me-2 ms-lg-2 me-lg-0" id="sidebarToggle"><i
+            data-feather="menu"></i></button>
+    <!-- Navbar Brand-->
+    <a class="navbar-brand pe-3 ps-4 ps-lg-2" href="{% url 'home' %}">DNM</a>
+
+    <!-- Navbar Items-->
+    <ul class="navbar-nav align-items-center ms-auto">
+        {% if request.user.is_authenticated %}
+        <!-- User Dropdown-->
+        <li class="nav-item dropdown no-caret dropdown-user me-3 me-lg-4">
+            <a class="btn btn-icon btn-transparent-dark dropdown-toggle" id="navbarDropdownUserImage"
+                href="javascript:void(0);" role="button" data-bs-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false"><i data-feather="user"></i></a>
+            <div class="dropdown-menu dropdown-menu-end border-0 shadow animated--fade-in-up"
+                aria-labelledby="navbarDropdownUserImage">
+                <h6 class="dropdown-header d-flex align-items-center">
+                    <img class="dropdown-user-img"
+                        src="{% if user.profile.photo %}{{ user.profile.photo.url }}{% else %}{% if user.profile.gender == 'M' %}{% static 'img/profile_male.png' %}{% else %}{% static 'img/profile_female.png' %}{% endif %}{% endif %}" />
+                    <div class="dropdown-user-details">
+                        <div class="dropdown-user-details-name">
+                            {% if user.get_full_name %}
+                            {{user.get_full_name}}
+                            {% else %}
+                            {{user.email}}
+                            {% endif %}
+                        </div>
+                        {% if user.get_full_name != "" %}
+                        <div class="dropdown-user-details-email">{{user.email}}</div>
+                        {% endif %}
+                    </div>
+                </h6>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="{% url 'account:profile' %}">
+                    <div class="dropdown-item-icon"><i data-feather="user"></i></div>
+                    Profile
+                </a>
+                <a class="dropdown-item" href="{% url 'account:password_change' %}">
+                    <div class="dropdown-item-icon"><i data-feather="key"></i></div>
+                    Change Password
+                </a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="{% url 'logout' %}">
+                    <div class="dropdown-item-icon"><i data-feather="power"></i></div>
+                    Logout
+                </a>
+            </div>
+        </li>
+        {% else %}
+        <a href="{% url 'login' %}" class="nav-item me-3 me-lg-4 btn btn-sm btn-outline-primary">Login</a>
+        {% endif %}
+    </ul>
+</nav>

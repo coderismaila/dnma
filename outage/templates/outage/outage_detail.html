@@ -1,0 +1,114 @@
+{% extends 'layouts/main.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% load bootstrap5 %}
+{% load render_table from django_tables2 %}
+{% load querystring from django_tables2 %}
+
+
+{% block main %}
+<div class="px-4">
+    <div class="d-flex flex-column align-items-center mt-2">
+        <div class="card bg-white w-100 h-100">
+            <h5 class="card-header bg-primary text-white">
+                Outage Detail
+            </h5>
+            <div class="card-body">
+                <div class="d-flex align-items-center justify-content-between">
+                    <h2 class="mb-0">Detail #{{ outage.feeder.name }}</h2>
+                    <div hx-confirm="Are you sure you want to delete this task?">
+                        <a class="btn btn-sm btn-primary me-1" hx-get="{% url 'outage:update_outage' outage.pk %}"
+                            hx-target="#dialog"> Update</a>
+                        <a class="btn btn-sm btn-danger" hx-delete="{% url 'outage:delete_outage' outage.pk %}">
+                            Delete
+                        </a>
+                    </div>
+                </div>
+                <div class="row bg-light mt-3 p-2">
+                    <div class="col-md-5 border-end">
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <p><b>Relay Indicator:</b></p>
+                            </div>
+                            <div class="col-sm-7">
+                                {{ outage.relay_indication }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <p><b>Load Loss:</b></p>
+                            </div>
+                            <div class="col-sm-7">
+                                {{ outage.load_loss_mw }}MW
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <p><b>Time Out:</b></p>
+                            </div>
+                            <div class="col-sm-7">
+                                {{ outage.time_out }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <p><b>Time In:</b></p>
+                            </div>
+                            <div class="col-sm-7">
+                                {{ outage.time_in | default_if_none:"Feeder still out" }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <p><b>Induced By:</b></p>
+                            </div>
+                            <div class="col-sm-7">
+                                {{ outage.induced_by }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <p><b>Recorded By:</b></p>
+                            </div>
+                            <div class="col-sm-7">
+                                {{ outage.recorded_by.get_full_name | default_if_none:"" }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <p><b>Fault Cause:</b> <br>{{ outage.fault_cause }}</p>
+                        <p><b>Resolution:</b> <br>{{ outage.resolution }}</p>
+                    </div>
+                </div>
+
+                <!-- Feeder Recent History -->
+                <h3 class="mt-5">Recent Outage</h3>
+                <table class="table table-sm table-responsive">
+                    <thead class="bg-light">
+                        <th>Feeder Name</th>
+                        <th>Relay Indication</th>
+                        <th>Load Loss (MW)</th>
+                        <th>Time Out</th>
+                        <th>Time In</th>
+                        <th>Induced By</th>
+                    </thead>
+                    <tbody>
+                        {% for obj in recent_outages %}
+                        <tr>
+                            <td>{{ obj.feeder.name }}</td>
+                            <td>{{ obj.relay_indication }}</td>
+                            <td>{{ obj.load_loss_mw }}</td>
+                            <td>{{ obj.time_out | date:"d/m/Y H:i" }}</td>
+                            <td>{{obj.time_in | default_if_none:"" | date:"d/m/Y H:i" }}</td>
+                            <td>{{ obj.induced_by | default_if_none:"" }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

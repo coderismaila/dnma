@@ -1,0 +1,105 @@
+<div id="layoutSidenav_nav">
+    <nav class="sidenav shadow-right sidenav-light">
+        <div class="sidenav-menu">
+            <div class="nav accordion" id="accordionSidenav">
+                <!-- Sidenav Menu Heading (Core)-->
+                <div class="sidenav-menu-heading">Core</div>
+                <!-- Sidenav Accordion (Dashboard)-->
+                <a class="nav-link" href="{% url 'dashboard' %}">
+                    <div class="nav-link-icon"><i data-feather="bar-chart-2"></i></div>
+                    Dashboards
+                </a>
+                <!-- Sidenav Heading (Asset)-->
+                <div class="sidenav-menu-heading">Asset</div>
+                <!-- Sidenav Accordion (Asset)-->
+                <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse"
+                    data-bs-target="#collapseAsset" aria-expanded="false" aria-controls="collapseAsset">
+                    <div class="nav-link-icon"><i class="fas fa-toolbox"></i></div>
+                    Asset
+                    <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse" id="collapseAsset" data-bs-parent="#accordionSidenav">
+                    <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavAssetMenu">
+                        <!-- Nested Sidenav Accordion (Pages -> Account)-->
+                        <a class="nav-link" href="#">
+                            Transmission Substations
+                        </a>
+                        <a class="nav-link" href="#">
+                            Injection Substations
+                        </a>
+                        <a class="nav-link" href="#">
+                            Power Transformers
+                        </a>
+                        <a class="nav-link" href="#">
+                            Distribution Transformers
+                        </a>
+                        <a class="nav-link" href="#">
+                            Feeders
+                        </a>
+                    </nav>
+                </div>
+                <a class="nav-link" href="#">
+                    <div class="nav-link-icon"><i data-feather="eye"></i></div>
+                    NEMSA Observation
+                </a>
+                <a class="nav-link" href="#">
+                    <div class="nav-link-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+                    Workshop Activities
+                </a>
+                <!-- Sidenav Heading (Dispatch)-->
+                <div class="sidenav-menu-heading">Power System</div>
+                <!-- Sidenav Accordion (Power System & Dispatch)-->
+                <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse"
+                    data-bs-target="#collapseDispatch" aria-expanded="false" aria-controls="collapseDispatch">
+                    <div class="nav-link-icon"><i data-feather="activity"></i></div>
+                    Load Reading
+                    <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse" id="collapseDispatch" data-bs-parent="#accordionSidenav">
+                    <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavLoadMenu">
+                        <!-- Nested Sidenav Accordion (Pages -> Account)-->
+                        <a class="nav-link" href="#">
+                            11KV Load Reading
+                        </a>
+                        <a class="nav-link" href="#">
+                            33KV Load Reading
+                        </a>
+                    </nav>
+                </div>
+                <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse"
+                    data-bs-target="#collapseOutage" aria-expanded="false" aria-controls="collapseOutage">
+                    <div class="nav-link-icon"><i data-feather="power"></i></div>
+                    Outage
+                    <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse" id="collapseOutage" data-bs-parent="#accordionSidenav">
+                    <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavOutageMenu">
+                        <!-- Nested Sidenav Accordion (Pages -> Account)-->
+                        <a class="nav-link" href="{% url 'outage:index' %}">
+                            Outage
+                        </a>
+                        <a class="nav-link" href="#">
+                            Loss of Revenue
+                        </a>
+                    </nav>
+                </div>
+
+            </div>
+        </div>
+        <!-- Sidenav Footer-->
+        {% if request.user.is_authenticated %}
+        <div class="sidenav-footer">
+            <div class="sidenav-footer-content">
+                <div class="sidenav-footer-subtitle">Logged in as:</div>
+                <div class="sidenav-footer-title">
+                    {% if user.get_full_name %}
+                    {{user.get_full_name}}
+                    {% else %}
+                    {{user.email}}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </nav>
+</div>
