@@ -24,6 +24,11 @@
         integrity="sha384-wg5Y/JwF7VxGk4zLsJEcAojRtlVp1FKKdGy1qN+OMtdq72WRvX/EdRdqg/LOhYeV"
         crossorigin="anonymous"></script>
     <script src="{% static 'js/dialog.js' %}"></script>
+    <script>
+        document.body.addEventListener('htmx:configRequest', function (evt) {
+            evt.detail.headers['X-CSRFToken'] = "{{ csrf_token }}"; // add a new parameter into the mix
+        });
+    </script>
 </body>
 {% endblock layout %}
 

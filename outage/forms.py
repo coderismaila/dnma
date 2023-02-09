@@ -5,14 +5,18 @@ from .models import Outage
 
 
 class OutageForm(forms.ModelForm):
-    time_out = forms.DateTimeField(widget=DateTimePickerInput)
-    time_in = forms.DateTimeField(widget=DateTimePickerInput, required=False)
     fault_cause = forms.CharField(widget=forms.Textarea, required=False)
     resolution = forms.CharField(widget=forms.Textarea, required=False)
 
     class Meta:
         model = Outage
         exclude = ("recorded_by",)
+        widgets = {
+            "time_out": DateTimePickerInput(),
+            "time_in": DateTimePickerInput(),
+            "fault_cause": forms.Textarea,
+            "resolution": forms.Textarea,
+        }
 
     def __init__(self, *args, **kwargs):
         super(OutageForm, self).__init__(*args, **kwargs)

@@ -5,7 +5,13 @@ from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django_filters.views import FilterView
 from django_tables2 import SingleTableMixin
 from django_tables2.export.views import ExportMixin
-from django.urls import reverse_lazy
+from django.urls import reverse
+from django.http import Http404
+from django.shortcuts import redirect
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from bootstrap_datepicker_plus.widgets import DateTimePickerInput
+
 
 from .filters import OutageFilter
 from .forms import OutageForm
@@ -14,7 +20,7 @@ from .tables import OutageTable
 
 
 # Create your views here.
-class OutageListView(ExportMixin, SingleTableMixin, FilterView):
+class OutageListView(ExportMixin, LoginRequiredMixin, SingleTableMixin, FilterView):
     model = Outage
     table_class = OutageTable
     template_name = "outage/index.html"
@@ -30,7 +36,7 @@ class OutageListView(ExportMixin, SingleTableMixin, FilterView):
         return template_name
 
 
-class RecordOutageView(SuccessMessageMixin, CreateView):
+class RecordOutageView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     model = Outage
     form_class = OutageForm
     template_name = "outage/outage_form.html"
@@ -43,7 +49,7 @@ class RecordOutageView(SuccessMessageMixin, CreateView):
         return HttpResponse(status=204, headers={"HX-Trigger": "outagelistchanged"})
 
 
-class UpdateOutageView(SuccessMessageMixin, UpdateView):
+class UpdateOutageView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     model = Outage
     form_class = OutageForm
     template_name = "outage/outage_form.html"
@@ -54,7 +60,7 @@ class UpdateOutageView(SuccessMessageMixin, UpdateView):
         return HttpResponse(status=204, headers={"HX-Trigger": "outagelistchanged"})
 
 
-class OutageDetailView(DetailView):
+class OutageDetailView(LoginRequiredMixin, DetailView):
     model = Outage
     context_object_name = "outage"
 
@@ -65,6 +71,25 @@ class OutageDetailView(DetailView):
         return context
 
 
-class DeleteOutageView(DeleteView):
-    model = Outage
-    success_url = reverse_lazy("outage:index")
+# class DeleteOutageView(DeleteView):
+#     model = Outage
+#     success_url = reverse_lazy("outage:index")
+
+
+@login_required()
+def outage_delete_view(request, pk=None):
+    try:
+        obj = Outage.objects.get(pk=pk)
+    except:
+        obj = None
+    if obj is None:
+        if request.htmx:
+            return HttpResponse("Not Found")
+        raise Http404()
+    if request.method == "DELETE":
+        obj.delete()
+        success_url = reverse("outage:index")
+        if request.htmx:
+            headers = {"HX-Redirect": success_url}
+            return HttpResponse("Success", headers=headers)
+        return redirect(success_url)

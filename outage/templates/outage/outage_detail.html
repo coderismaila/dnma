@@ -16,10 +16,12 @@
             <div class="card-body">
                 <div class="d-flex align-items-center justify-content-between">
                     <h2 class="mb-0">Detail #{{ outage.feeder.name }}</h2>
-                    <div hx-confirm="Are you sure you want to delete this task?">
+                    <div>
                         <a class="btn btn-sm btn-primary me-1" hx-get="{% url 'outage:update_outage' outage.pk %}"
                             hx-target="#dialog"> Update</a>
-                        <a class="btn btn-sm btn-danger" hx-delete="{% url 'outage:delete_outage' outage.pk %}">
+                        <a class="btn btn-sm btn-danger"
+                            hx-confirm="Are you sure you want to delete this outage? This action is not reversible!!!"
+                            hx-delete="{% url 'outage:delete_outage' outage.pk %}">
                             Delete
                         </a>
                     </div>
@@ -47,7 +49,7 @@
                                 <p><b>Time Out:</b></p>
                             </div>
                             <div class="col-sm-7">
-                                {{ outage.time_out }}
+                                {{ outage.time_out | date:"d/m/Y H:i" }}
                             </div>
                         </div>
                         <div class="row">
@@ -55,7 +57,7 @@
                                 <p><b>Time In:</b></p>
                             </div>
                             <div class="col-sm-7">
-                                {{ outage.time_in | default_if_none:"Feeder still out" }}
+                                {{ outage.time_in | date:"d/m/Y H:i" | default_if_none:"Feeder still out" }}
                             </div>
                         </div>
                         <div class="row">
@@ -63,7 +65,7 @@
                                 <p><b>Induced By:</b></p>
                             </div>
                             <div class="col-sm-7">
-                                {{ outage.induced_by }}
+                                {{ outage.induced_by | default_if_none:"" }}
                             </div>
                         </div>
                         <div class="row">
