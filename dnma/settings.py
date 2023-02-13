@@ -172,3 +172,5 @@ MESSAGE_TAGS = {
     messages.WARNING: "text-dark bg-warning",
     messages.ERROR: "text-white bg-danger",
 }
+
+USE_THOUSAND_SEPARATOR = True
