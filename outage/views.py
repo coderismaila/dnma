@@ -1,3 +1,4 @@
+from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
@@ -32,12 +33,36 @@ class OutageListView(ExportMixin, LoginRequiredMixin, SingleTableMixin, FilterVi
 
         return template_name
 
+    def get_table_data(self):
+        """
+        filter appropriate outages for logged in user
+        """
+        qs = super(OutageListView, self).get_table_data()
+        user = get_user_model().objects.get(username=self.request.user)
+        if (user.is_staff and user.profile.is_hq_staff) or user.is_superuser:
+            return qs
+        elif user.is_staff and not user.profile.is_hq_staff:
+            return qs.filter(feeder__area_office=user.profile.area_office)
+        elif user.profile.is_dso and user.profile.is_hq_staff:
+            return qs.filter(feeder__voltage_level="33")
+        elif user.profile.is_dso and not user.profile.is_hq_staff:
+            return qs.filter(
+                feeder__source_power_transformer__station=user.profile.station
+            )
+
 
 class RecordOutageView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     model = Outage
     form_class = OutageForm
     template_name = "outage/outage_form.html"
     success_message = "outage recorded successfully"
+
+    # pass logged in user object to form kwargs so it can be used to fetched user queryset
+    def get_form_kwargs(self, *args, **kwargs):
+        kwargs = super(RecordOutageView, self).get_form_kwargs(*args, **kwargs)
+        print(self.request.user)
+        kwargs["user"] = self.request.user
+        return kwargs
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
@@ -51,6 +76,11 @@ class UpdateOutageView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     form_class = OutageForm
     template_name = "outage/outage_form.html"
     success_message = "outage updated successfully"
+
+    def get_form_kwargs(self, *args, **kwargs):
+        kwargs = super(UpdateOutageView, self).get_form_kwargs(*args, **kwargs)
+        kwargs["user"] = self.request.user
+        return kwargs
 
     def form_valid(self, form):
         self.object = form.save()

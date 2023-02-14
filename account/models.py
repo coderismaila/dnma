@@ -68,3 +68,5 @@ class Profile(models.Model):
     station = models.ForeignKey(
         "asset.Station", on_delete=models.SET_NULL, blank=True, null=True
     )
+    is_hq_staff = models.BooleanField(_("is head office staff?"), default=False)
+    is_dso = models.BooleanField(_("is dso?"), default=False)
