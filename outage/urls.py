@@ -1,13 +1,7 @@
 from django.urls import path
 
-from .views import (
-    OutageDetailView,
-    OutageListView,
-    RecordOutageView,
-    # DeleteOutageView,
-    UpdateOutageView,
-    outage_delete_view,
-)
+from .views import (OutageDetailView, OutageListView,  # DeleteOutageView,
+                    RecordOutageView, UpdateOutageView, outage_delete_view)
 
 app_name = "outage"
 urlpatterns = [

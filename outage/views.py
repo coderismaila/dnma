@@ -1,17 +1,14 @@
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
-from django.http import HttpResponse
+from django.http import Http404, HttpResponse
+from django.shortcuts import redirect
+from django.urls import reverse
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView, DeleteView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView
 from django_filters.views import FilterView
 from django_tables2 import SingleTableMixin
 from django_tables2.export.views import ExportMixin
-from django.urls import reverse
-from django.http import Http404
-from django.shortcuts import redirect
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
-from bootstrap_datepicker_plus.widgets import DateTimePickerInput
-
 
 from .filters import OutageFilter
 from .forms import OutageForm
@@ -69,11 +66,6 @@ class OutageDetailView(LoginRequiredMixin, DetailView):
         recent_outages = Outage.objects.filter(feeder=self.object.feeder)[:5]
         context["recent_outages"] = recent_outages
         return context
-
-
-# class DeleteOutageView(DeleteView):
-#     model = Outage
-#     success_url = reverse_lazy("outage:index")
 
 
 @login_required()
