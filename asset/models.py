@@ -1,7 +1,7 @@
 from django.core.exceptions import ValidationError
 from django.db import models
-from django.db.models import Sum
 from django.utils.translation import gettext_lazy as _
+from math import sqrt
 
 from core.models import AreaOffice, Band
 
@@ -83,8 +83,16 @@ class Transformer(models.Model):
         choices=VoltageRatio.choices,
         default=VoltageRatio.LOW_VOLTAGE,
     )
+    rated_current = models.CharField(
+        _("rated current"),
+        max_length=20,
+        null=True,
+        blank=True,
+        help_text=_("primary & secondary current written as Ip/Is"),
+        editable=False,
+    )
     serial_number = models.CharField(
-        _("serial number"), max_length=25, null=True, blank=True
+        _("serial number"), max_length=25, unique=True, null=True, blank=True
     )
     manufacture_year = models.DateField(null=True, blank=True)
     vector_group = models.ForeignKey(
@@ -94,6 +102,18 @@ class Transformer(models.Model):
 
     class Meta:
         abstract = True
+
+    def save(self, *args, **kwargs):
+        v_p = int(self.voltage_ratio.split("/")[0])
+        v_s = int(self.voltage_ratio.split("/")[1])
+        print(self.capacity_kva)
+
+        # calculate secondary and primary current
+        i_p = self.capacity_kva / (sqrt(3) * v_p)
+        i_s = self.capacity_kva / (sqrt(3) * v_s)
+        self.rated_current = f"{round(i_p,2)}/{round(i_s,2)}"
+        print(self.rated_current)
+        super().save(*args, **kwargs)
 
 
 class PowerTransformer(Transformer):
