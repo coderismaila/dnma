@@ -21,6 +21,7 @@ class StationConfig(admin.ModelAdmin, ExportCsvMixin):
         "manned",
     )
     list_filter = ("type",)
+    search_fields = ("name",)
     readonly_fields = ("total_capacity_kva",)
     actions = ["export_as_csv"]
     inlines = [PowerTransformerInline]
@@ -45,6 +46,8 @@ class PowerTransformerConfig(admin.ModelAdmin, ExportCsvMixin):
         "impedance",
         "manufacture_year",
     )
+    list_filter = ("station",)
+    search_fields = ("station",)
     actions = ["export_as_csv"]
 
     def transmission_station(self, obj):
@@ -65,7 +68,7 @@ class FeederConfig(admin.ModelAdmin, ExportCsvMixin):
         "voltage_level",
     )
     search_fields = ("name",)
-    list_filter = ("voltage_level",)
+    list_filter = ("voltage_level", "area_office")
     radio_fields = {"voltage_level": admin.HORIZONTAL}
     ordering = ("name", "area_office")
     actions = ["export_as_csv"]
@@ -88,4 +91,6 @@ class DistributionTransformerConfig(admin.ModelAdmin, ExportCsvMixin):
         "impedance",
         "manufacture_year",
     )
+    search_fields = ("name",)
+    list_filter = ("source_feeder", "source_feeder__area_office")
     actions = ["export_as_csv"]
