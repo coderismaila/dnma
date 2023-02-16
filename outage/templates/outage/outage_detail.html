@@ -85,29 +85,30 @@
 
                 <!-- Feeder Recent History -->
                 <h3 class="mt-5">Recent Outage</h3>
-                <table class="table table-sm table-responsive">
-                    <thead class="bg-light">
-                        <th>Feeder Name</th>
-                        <th>Relay Indication</th>
-                        <th>Load Loss (MW)</th>
-                        <th>Time Out</th>
-                        <th>Time In</th>
-                        <th>Induced By</th>
-                    </thead>
-                    <tbody>
-                        {% for obj in recent_outages %}
-                        <tr>
-                            <td>{{ obj.feeder.name }}</td>
-                            <td>{{ obj.relay_indication }}</td>
-                            <td>{{ obj.load_loss_mw }}</td>
-                            <td>{{ obj.time_out | date:"d/m/Y H:i" }}</td>
-                            <td>{{obj.time_in | default_if_none:"" | date:"d/m/Y H:i" }}</td>
-                            <td>{{ obj.induced_by | default_if_none:"" }}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-
+                <div class="table-responsive-sm">
+                    <table class="table table-sm ">
+                        <thead class="bg-light">
+                            <th>Feeder Name</th>
+                            <th>Relay Indication</th>
+                            <th>Load Loss (MW)</th>
+                            <th>Time Out</th>
+                            <th>Time In</th>
+                            <th>Induced By</th>
+                        </thead>
+                        <tbody>
+                            {% for obj in recent_outages %}
+                            <tr>
+                                <td>{{ obj.feeder.name }}</td>
+                                <td>{{ obj.relay_indication }}</td>
+                                <td>{{ obj.load_loss_mw }}</td>
+                                <td>{{ obj.time_out | date:"d/m/Y H:i" }}</td>
+                                <td>{{obj.time_in | default_if_none:"" | date:"d/m/Y H:i" }}</td>
+                                <td>{{ obj.induced_by | default_if_none:"" }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
