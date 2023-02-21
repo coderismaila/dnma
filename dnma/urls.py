@@ -12,6 +12,7 @@ urlpatterns = [
     path("account/", include("account.urls")),
     path("account/", include("django.contrib.auth.urls")),
     path("outage/", include("outage.urls")),
+    path("load/", include("load.urls")),
 ]
 
 if settings.DEBUG:

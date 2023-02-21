@@ -30,7 +30,7 @@ SECRET_KEY = config(
 )
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = config(
     "ALLOWED_HOSTS", default="127.0.0.1,localhost,dnma.fly.dev", cast=Csv()
@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "account.apps.AccountConfig",
     "asset.apps.AssetConfig",
     "outage.apps.OutageConfig",
+    "load.apps.LoadConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -57,9 +58,9 @@ INSTALLED_APPS = [
     "bootstrap5",
     "django_filters",
     "django_tables2",
-    "bootstrap_datepicker_plus",
     "django_htmx",
 ]
+
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",

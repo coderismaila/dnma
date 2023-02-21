@@ -7,12 +7,17 @@ from asset.models import Feeder
 
 
 class OutageType(models.TextChoices):
-    OVERCURRENT = "O/C", "Overcurrent"
-    EARTH_FAULT = "E/F", "Earth Fault"
-    OVERCURRENT_AND_EARTH_FAULT = "O/C & E/F", "Overcurrent & Earth Fault"
-    OUT_OF_SERVICE = "O/S", "Out of Service"
-    FREQUENCY_CONTROL = "F/C", "Frequency Control"
-    PLANNED_OUTAGE = "P/O", "Planned Outage"
+    IN_CIRCUIT = "IN CIRCUIT", "In Circuit"
+    OVERCURRENT = "OVER CURRENT", "Overcurrent"
+    EARTH_FAULT = "EARTH FAULT", "Earth Fault"
+    OVERCURRENT_AND_EARTH_FAULT = (
+        "OVERCURRENT & EARTH FAULT",
+        "Overcurrent & Earth Fault",
+    )
+    OUT_OF_SERVICE = "OUT OF SERVICE", "Out of Service"
+    FREQUENCY_CONTROL = "FREQUENCY CONTROL", "Frequency Control"
+    PLANNED_OUTAGE = "PLANNED OUTAGE", "Planned Outage"
+    SYSTEM_COLLAPSE = "SYSTEM COLLAPSE", "System Collapse"
 
 
 class Outage(models.Model):

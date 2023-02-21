@@ -1,0 +1,18 @@
+{% extends 'layouts/main.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% load bootstrap5 %}
+
+
+{% block main %}
+<div>
+    <form method="post">
+        {% csrf_token %}
+        <div class="d-flex flex-column gap-2">
+            <div>{% bootstrap_form form %}</div>
+            <div><input class="btn btn-primary" type="submit" value="Submit"></div>
+        </div>
+    </form>
+    <div id="load-table"></div>
+</div>
+{% endblock %}

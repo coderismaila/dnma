@@ -1,6 +1,7 @@
 from datetime import datetime
 
-from bootstrap_datepicker_plus.widgets import DateTimePickerInput
+
+from core.widgets import XDSoftDateTimePickerInput
 from django import forms
 from django.utils import timezone
 
@@ -50,8 +51,8 @@ class OutageForm(forms.ModelForm):
         model = Outage
         exclude = ("recorded_by",)
         widgets = {
-            "time_out": DateTimePickerInput(),
-            "time_in": DateTimePickerInput(),
+            "time_out": XDSoftDateTimePickerInput(),
+            "time_in": XDSoftDateTimePickerInput(),
             "fault_cause": forms.Textarea,
             "resolution": forms.Textarea,
         }

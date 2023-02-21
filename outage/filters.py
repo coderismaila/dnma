@@ -1,6 +1,5 @@
 import django_filters
-from bootstrap_datepicker_plus.widgets import DatePickerInput
-
+from core.widgets import XDSoftDatePickerInput
 from .models import Outage
 
 
@@ -9,13 +8,13 @@ class OutageFilter(django_filters.FilterSet):
         field_name="time_out",
         label="Min Date",
         lookup_expr="gte",
-        widget=DatePickerInput(),
+        widget=XDSoftDatePickerInput(),
     )
     max_date = django_filters.DateFilter(
         field_name="time_out",
         label="Max Date",
         lookup_expr="lte",
-        widget=DatePickerInput(),
+        widget=XDSoftDatePickerInput(),
     )
 
     class Meta:

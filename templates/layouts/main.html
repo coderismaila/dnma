@@ -24,6 +24,9 @@
         integrity="sha384-wg5Y/JwF7VxGk4zLsJEcAojRtlVp1FKKdGy1qN+OMtdq72WRvX/EdRdqg/LOhYeV"
         crossorigin="anonymous"></script>
     <script src="{% static 'js/dialog.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"
+        integrity="sha512-AIOTidJAcHBH2G/oZv9viEGXRqDNmfdPVPYOYKGy3fti0xIplnlgMHUGfuNRzC6FkzIo0iIxgFnr9RikFxK+sw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         document.body.addEventListener('htmx:configRequest', function (evt) {
             evt.detail.headers['X-CSRFToken'] = "{{ csrf_token }}"; // add a new parameter into the mix
