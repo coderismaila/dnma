@@ -1,7 +1,15 @@
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineNuxtConfig({
-  modules: ["@nuxthub/core", "@nuxt/eslint", "@nuxt/icon", "shadcn-nuxt"],
+  modules: [
+    "@nuxthub/core",
+    "@nuxt/eslint",
+    "@nuxt/icon",
+    "shadcn-nuxt",
+    "@vueuse/nuxt",
+    "@nuxtjs/color-mode",
+    "@nuxt/image",
+  ],
 
   devtools: { enabled: true },
 
@@ -11,6 +19,10 @@ export default defineNuxtConfig({
   hub: {},
 
   css: ["./app/assets/css/main.css"],
+
+  colorMode: {
+    classSuffix: "",
+  },
 
   shadcn: {
     prefix: "",
