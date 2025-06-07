@@ -8,6 +8,9 @@ jobs:
     environment:
       name: ${{ github.ref == 'refs/heads/main' && 'production' || 'preview' }}
       url: ${{ steps.deploy.outputs.deployment-url }}
+    env:
+      NUXT_JWT_SECRET: ${{ vars.NUXT_JWT_SECRET }}
+      NUXT_RESEND_API_KEY: ${{ vars.NUXT_RESEND_API_KEY }}
     permissions:
       contents: read
       id-token: write
