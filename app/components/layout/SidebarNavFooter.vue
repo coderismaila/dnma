@@ -4,6 +4,8 @@ import { useSidebar } from "~/components/ui/sidebar";
 const { isMobile, setOpenMobile } = useSidebar();
 
 const showModalTheme = ref(false);
+
+const { user } = useUserSession();
 </script>
 
 <template>
@@ -16,9 +18,9 @@ const showModalTheme = ref(false);
             class="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
           >
             <Avatar class="h-8 w-8 rounded-lg">
-              <AvatarImage src="/ke-logo.svg" alt="logo" />
+              <AvatarImage :src="user?.image || '/ke-logo.svg'" alt="logo" />
               <AvatarFallback class="rounded-lg">
-                {{ "Ismaila Hassan".split(' ').map((n) => n[0]).join('') }}
+                {{ user?.name.split(' ').map((n) => n[0]).join('') }}
               </AvatarFallback>
             </Avatar>
             <div class="grid flex-1 text-left text-sm leading-tight">
@@ -38,12 +40,12 @@ const showModalTheme = ref(false);
               <Avatar class="h-8 w-8 rounded-lg">
                 <AvatarImage src="/ke-logo.svg" alt="Ismail Hassan" />
                 <AvatarFallback class="rounded-lg">
-                  {{ "Ismail Hassan".split(' ').map((n) => n[0]).join('') }}
+                  {{ user?.name.split(' ').map((n) => n[0]).join('') }}
                 </AvatarFallback>
               </Avatar>
               <div class="grid flex-1 text-left text-sm leading-tight">
-                <span class="truncate font-semibold">{{ "Ismail Hassan" }}</span>
-                <span class="truncate text-xs">{{ 'ismailah28@gmail.com' }}</span>
+                <span class="truncate font-semibold">{{ user?.name }}</span>
+                <span class="truncate text-xs">{{ user?.email }}</span>
               </div>
             </div>
           </DropdownMenuLabel>
@@ -87,7 +89,3 @@ const showModalTheme = ref(false);
     </DialogContent>
   </Dialog>
 </template>
-
-<style scoped>
-
-</style>

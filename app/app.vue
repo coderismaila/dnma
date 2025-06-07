@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import "vue-sonner/style.css";
+
 const colorMode = useColorMode();
 
 const color = computed(() => colorMode.value === "dark" ? "dark" : "light");
@@ -45,5 +47,6 @@ defineShortcuts({
   <NuxtLoadingIndicator />
   <NuxtLayout>
     <NuxtPage />
+    <Toaster />
   </NuxtLayout>
 </template>

@@ -9,6 +9,9 @@ export default defineNuxtConfig({
     "@vueuse/nuxt",
     "@nuxtjs/color-mode",
     "@nuxt/image",
+    "nuxt-auth-utils",
+    "@vee-validate/nuxt",
+    "nuxt-resend",
   ],
 
   devtools: { enabled: true },
@@ -16,7 +19,9 @@ export default defineNuxtConfig({
   future: { compatibilityVersion: 4 },
   compatibilityDate: "2025-03-01",
 
-  hub: {},
+  hub: {
+    database: true,
+  },
 
   css: ["./app/assets/css/main.css"],
 
@@ -27,6 +32,10 @@ export default defineNuxtConfig({
   shadcn: {
     prefix: "",
     componentDir: "./app/components/ui",
+  },
+
+  routeRules: {
+    "/settings": { redirect: "/settings/profile" },
   },
 
   vite: {
