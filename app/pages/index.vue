@@ -1,12 +1,88 @@
 <script setup lang="ts">
-
+definePageMeta({
+  layout: "blank",
+});
 </script>
 
 <template>
-  <div class="centered">
-    <h1>
-      Welcome to <strong>Nuxt 3</strong> with <strong>TypeScript</strong>!
-    </h1>
-    <Button>Click me!</Button>
+  <div class="min-h-screen">
+    <Header />
+    <Hero />
+    <Features />
+    <Solutions />
+    <Footer />
   </div>
 </template>
+
+<style lang="css" scoped>
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+/* Custom gradient for hero section */
+.electric-gradient {
+  background: linear-gradient(135deg, hsl(var(--electric-blue)) 0%, hsl(var(--electric-light)) 100%);
+}
+
+/* Grid pattern overlay */
+.grid-pattern {
+  background-image:
+    linear-gradient(to right, hsl(var(--grid-gray)) 1px, transparent 1px),
+    linear-gradient(to bottom, hsl(var(--grid-gray)) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Animation for floating elements */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.float-animation {
+  animation: float 6s ease-in-out infinite;
+}
+</style>

@@ -15,19 +15,17 @@ const { handleSubmit, isSubmitting } = useForm({
 
 const onSubmit = handleSubmit(async (values) => {
   submitError.value = null;
-  try {
-    await $fetch("/api/auth/signin", {
-      method: "POST",
-      body: values,
-    });
+  await $fetch("/api/auth/signin", {
+    method: "POST",
+    body: values,
+  }).then(async () => {
     await refreshSession();
     await navigateTo("/dashboard");
-  }
-  catch (e) {
+  }).catch((e) => {
     const error = e as FetchError;
     submitError.value = error.statusMessage || "An error occurred during sign-in.";
     console.error("User signin failed:", error);
-  }
+  });
 });
 </script>
 

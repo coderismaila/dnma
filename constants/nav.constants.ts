@@ -134,13 +134,13 @@ export const navMenu: NavMenu[] = [
         roles: ["admin"],
         children: [
           {
-            title: "User List",
+            title: "Manage Users",
             icon: "i-lucide-circle",
             link: "/users",
             roles: ["admin"],
           },
           {
-            title: "Invitations",
+            title: "Manage Invitations",
             icon: "i-lucide-circle",
             link: "/users/invitations",
             roles: ["admin"],

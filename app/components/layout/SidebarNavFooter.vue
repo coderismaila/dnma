@@ -5,7 +5,12 @@ const { isMobile, setOpenMobile } = useSidebar();
 
 const showModalTheme = ref(false);
 
-const { user } = useUserSession();
+const { user, clear } = useUserSession();
+
+async function logout() {
+  await clear();
+  await navigateTo("/auth/signin");
+}
 </script>
 
 <template>
@@ -18,14 +23,14 @@ const { user } = useUserSession();
             class="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
           >
             <Avatar class="h-8 w-8 rounded-lg">
-              <AvatarImage :src="user?.image || '/ke-logo.svg'" alt="logo" />
+              <AvatarImage :src="user?.image || ''" alt="logo" />
               <AvatarFallback class="rounded-lg">
                 {{ user?.name.split(' ').map((n) => n[0]).join('') }}
               </AvatarFallback>
             </Avatar>
             <div class="grid flex-1 text-left text-sm leading-tight">
               <span class="truncate font-semibold">{{ 'Ismail Hassan' }}</span>
-              <span class="truncate text-xs">{{ 'ismailah28@gmail.com' }}</span>
+              <span class="truncate text-xs">{{ user?.email }}</span>
             </div>
             <Icon name="i-lucide-chevrons-up-down" class="ml-auto size-4" />
           </SidebarMenuButton>
@@ -38,7 +43,7 @@ const { user } = useUserSession();
           <DropdownMenuLabel class="p-0 font-normal">
             <div class="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
               <Avatar class="h-8 w-8 rounded-lg">
-                <AvatarImage src="/ke-logo.svg" alt="Ismail Hassan" />
+                <AvatarImage :src="user?.image || ''" alt="Ismail Hassan" />
                 <AvatarFallback class="rounded-lg">
                   {{ user?.name.split(' ').map((n) => n[0]).join('') }}
                 </AvatarFallback>
@@ -68,7 +73,7 @@ const { user } = useUserSession();
             </DropdownMenuItem>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>
+          <DropdownMenuItem @click="logout">
             <Icon name="i-lucide-log-out" />
             Log out
           </DropdownMenuItem>
