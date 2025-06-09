@@ -38,6 +38,11 @@ export default defineNuxtConfig({
     "/settings": { redirect: "/settings/profile" },
   },
 
+  resend: {
+    // eslint-disable-next-line node/no-process-env
+    apiKey: process.env.NUXT_RESEND_API_KEY || "",
+  },
+
   vite: {
     plugins: [
       tailwindcss(),

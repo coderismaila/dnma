@@ -1,3 +1,11 @@
+<script setup lang="ts">
+const colorMode = useColorMode();
+
+const logo = computed(() => {
+  return colorMode.preference === "dark" ? "/ke-logo-white.svg" : "ke-logo.svg";
+});
+</script>
+
 <template>
   <SidebarMenu>
     <SidebarMenuItem>
@@ -5,10 +13,13 @@
         size="lg"
         class="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
       >
-        <NuxtImg src="/ke-logo.svg" class="aspect-square size-8 flex items-center justify-center rounded-lg" />
+        <NuxtImg
+          :src="logo"
+          class="aspect-square size-8 flex items-center justify-center rounded-lg"
+        />
         <div class="grid flex-1 text-left text-lg">
           <span class="truncate font-semibold">
-            DNM
+            KEAR
           </span>
         </div>
       </SidebarMenuButton>

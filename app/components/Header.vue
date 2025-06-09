@@ -1,6 +1,12 @@
 <script lang="ts" setup>
 const isMenuOpen = ref(false);
 const { loggedIn } = useUserSession();
+
+const colorMode = useColorMode();
+
+const logo = computed(() => {
+  return colorMode.preference === "dark" ? "/ke-logo.svg" : "ke-logo-white.svg";
+});
 </script>
 
 <template>
@@ -9,7 +15,10 @@ const { loggedIn } = useUserSession();
       <div class="flex items-center justify-between">
         <div class="flex items-center space-x-2">
           <div class="p-2 bg-primary rounded-lg">
-            <NuxtImg src="/ke-logo.svg" class="aspect-square size-8 flex items-center justify-center rounded-lg" />
+            <NuxtImg
+              :src="logo"
+              class="aspect-square size-8 flex items-center justify-center rounded-lg"
+            />
           </div>
           <span class="text-xl font-bold">KEAR</span>
         </div>
@@ -31,6 +40,8 @@ const { loggedIn } = useUserSession();
         </nav>
 
         <div class="hidden md:flex items-center space-x-4">
+          <ModeSwitcher />
+
           <Button v-if="!loggedIn" as-child>
             <NuxtLink to="/auth/signin">
               Sign In
