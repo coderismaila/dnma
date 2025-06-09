@@ -21,8 +21,8 @@ useHead({
   },
 });
 
-const title = "DNMA - DIstribution Network Management Application";
-const description = "DNMA is a web application for managing distribution networks, providing tools for monitoring, analysis, and optimization.";
+const title = "KEAR - Kaduna Electric Asset Registry";
+const description = "KEAR is a web application for managing distribution networks, providing tools for monitoring, analysis, and optimization.";
 
 useSeoMeta({
   title,

@@ -1,5 +1,9 @@
 <script lang="ts" setup>
+const colorMode = useColorMode();
 
+const logo = computed(() => {
+  return colorMode.preference === "dark" ? "/ke-logo.svg" : "ke-logo-white.svg";
+});
 </script>
 
 <template>
@@ -9,7 +13,10 @@
         <div class="col-span-1 md:col-span-2">
           <div class="flex items-center space-x-2 mb-4">
             <div class="p-2 bg-primary rounded-lg">
-              <NuxtImg src="/ke-logo.svg" class="aspect-square size-8 flex items-center justify-center rounded-lg" />
+              <NuxtImg
+                :src="logo"
+                class="aspect-square size-8 flex items-center justify-center rounded-lg"
+              />
             </div>
             <span class="text-xl font-bold">KEAR</span>
           </div>
