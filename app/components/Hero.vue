@@ -16,7 +16,9 @@ const logo = computed(() => {
       <div class="text-center max-w-4xl mx-auto">
         <div class="float-animation mb-8">
           <div class="inline-flex p-4 bg-primary/10 rounded-full">
-            <NuxtImg :src="logo" class="aspect-square size-8 flex items-center justify-center rounded-lg" />
+            <ClientOnly>
+              <NuxtImg :src="logo" class="aspect-square size-8 flex items-center justify-center rounded-lg" />
+            </ClientOnly>
           </div>
         </div>
 

@@ -13,12 +13,15 @@ const logo = computed(() => {
         size="lg"
         class="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
       >
-        <NuxtImg
-          :src="logo"
-          class="aspect-square size-8 flex items-center justify-center rounded-lg"
-        />
+        <ClientOnly>
+          <NuxtImg
+            :src="logo"
+            class="aspect-square size-8 flex items-center justify-center rounded-lg"
+          />
+        </ClientOnly>
+
         <div class="grid flex-1 text-left text-lg">
-          <span class="truncate font-semibold">
+          <span class="truncate font-bold">
             KEAR
           </span>
         </div>
