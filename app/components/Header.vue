@@ -15,10 +15,12 @@ const logo = computed(() => {
       <div class="flex items-center justify-between">
         <div class="flex items-center space-x-2">
           <div class="p-2 bg-primary rounded-lg">
-            <NuxtImg
-              :src="logo"
-              class="aspect-square size-8 flex items-center justify-center rounded-lg"
-            />
+            <ClientOnly>
+              <NuxtImg
+                :src="logo"
+                class="aspect-square size-8 flex items-center justify-center rounded-lg"
+              />
+            </ClientOnly>
           </div>
           <span class="text-xl font-bold">KEAR</span>
         </div>

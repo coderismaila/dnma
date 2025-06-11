@@ -26,7 +26,7 @@ export const navMenu: NavMenu[] = [
           {
             title: "Transmission Stations",
             icon: "i-lucide-circle",
-            link: "#",
+            link: "/transmission-station",
           },
           {
             title: "Injection Substation",

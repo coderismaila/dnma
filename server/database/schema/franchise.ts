@@ -4,6 +4,7 @@ import { relations } from "drizzle-orm";
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 
+import { transmissionStation } from "./transmissionStation";
 import { user } from "./user";
 
 export const region = sqliteTable("region", {
@@ -44,6 +45,7 @@ export type InsertAreaOffice = z.infer<typeof InsertAreaOffice>;
 
 export const regionRelation = relations(region, ({ many }) => ({
   areaOffices: many(areaOffice),
+  transmissionStations: many(transmissionStation),
 }));
 
 export const areaOfficeRelation = relations(areaOffice, ({ one, many }) => ({
